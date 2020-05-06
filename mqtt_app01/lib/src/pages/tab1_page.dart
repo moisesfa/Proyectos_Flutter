@@ -15,13 +15,8 @@ class Tab1Page extends StatefulWidget {
 }
 
 class _Tab1PageState extends State<Tab1Page> {
-  final String _titleBar = 'Cliente MQTT';
 
-  // String _broker  = '192.168.1.101';
-  // int _port = 1883;
-  // String _username = 'moi';
-  // String _password = 'moi';
-  // String _clientId = 'flutter';
+  final String _titleBar = 'Cliente MQTT';
 
   @override
   Widget build(BuildContext context) {
@@ -114,9 +109,9 @@ class _Tab1PageState extends State<Tab1Page> {
        hintText: 'Ip o dirección del Broker'
       ),
       onChanged: (valor){
-        setState(() {
+        //setState(() {
           dataConnection.broker = valor;           
-        });
+        //});
       },
     );
   }
@@ -131,9 +126,9 @@ class _Tab1PageState extends State<Tab1Page> {
        hintText: 'Número de puerto',             
       ),
       onChanged: (valor){
-        setState(() {
+        //setState(() {
           dataConnection.port = int.parse(valor);          
-        });
+        //});
       },
     );
   }
@@ -146,9 +141,9 @@ class _Tab1PageState extends State<Tab1Page> {
         hintText: 'Nombre del cliente'
         ),
         onChanged: (valor){
-          setState(() {            
+          //setState(() {            
             dataConnection.clientId = valor;
-          });
+          //});
         },
       );
     }
@@ -161,9 +156,9 @@ class _Tab1PageState extends State<Tab1Page> {
         hintText: 'Nombre del usuario'
         ),
         onChanged: (valor){
-          setState(() {            
+          //setState(() {            
             dataConnection.username = valor;          
-          });
+          //});
         },
       );
     }
@@ -178,9 +173,9 @@ class _Tab1PageState extends State<Tab1Page> {
         hintText: 'Contraseña del usuario'
         ),
         onChanged: (valor){
-          setState(() {
+          //setState(() {
             dataConnection.password = valor;             
-          });
+          //});
         },
       );
     }

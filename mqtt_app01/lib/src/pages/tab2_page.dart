@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mqtt_app01/src/mqtt/data_connection_mqtt.dart';
 import 'package:mqtt_app01/src/mqtt/manager_mqtt.dart';
 import 'package:mqtt_app01/src/providers/mqttstate_model.dart';
 import 'package:mqtt_app01/src/theme/tema.dart'; 
@@ -12,8 +13,6 @@ class Tab2Page extends StatefulWidget {
 class _Tab2PageState extends State<Tab2Page> {
 
   final String _titleBar = 'Cliente MQTT';
-  String topic = '';
-  bool subscrito = false;
   
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,8 @@ class _Tab2PageState extends State<Tab2Page> {
     // Intancia de para saber el estado de la conexion
     final mqttState = Provider.of<MqttStateModel>(context);
     // Instancia de la clase singleton donde manejamos la conexión y otras funciones 
-    final managerMqtt = new ManagerMQTT(mqttState);    
+    final managerMqtt = new ManagerMQTT(mqttState);
+    final dataConnection = new DataConnectionMQTT();    
     
     //final dataConnection = new DataConnection();
     //dataConnection.username = 'hola';
@@ -54,10 +54,10 @@ class _Tab2PageState extends State<Tab2Page> {
                             //semanticLabel: 'Text to announce in accessibility modes',
                           ),
                           Text(mqttState.connectionState ? 'Conectado': 'Desconectado' ),
-                          _inputTopic(), 
+                          _inputTopic(dataConnection), 
                           //Text(topic),
                           SizedBox(height: 30.0,),                    
-                          _buttonSubsNotsubs( mqttState.connectionState, managerMqtt),                
+                          _buttonSubsNotsubs( mqttState.connectionState, managerMqtt, dataConnection),                
                         ],
                       )
                   ),
@@ -95,24 +95,24 @@ class _Tab2PageState extends State<Tab2Page> {
     );
   }
 
-  Widget _inputTopic() {
+  Widget _inputTopic(DataConnectionMQTT dataConnection) {
 
     return TextField(
-      //controller: TextEditingController()..text = dataConnection.broker,   
+      controller: TextEditingController()..text = dataConnection.topicsub,   
       //autofocus: true,
       decoration: InputDecoration(
        labelText: 'Topic',
        hintText: 'Topic al que suscribirse'
       ),
       onChanged: (valor){
-        setState(() {
-          topic = valor;           
-        });
+        //setState(() {
+          dataConnection.topicsub = valor;          
+        //});
       },
     );
   }
 
-  Widget _buttonSubsNotsubs(bool mqttState, ManagerMQTT mgMQTT ) {
+  Widget _buttonSubsNotsubs(bool mqttState, ManagerMQTT mgMQTT, DataConnectionMQTT dataConnection) {
       return RaisedButton(
         child: Container(
           width: 140.0,
@@ -121,7 +121,7 @@ class _Tab2PageState extends State<Tab2Page> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,          
             children: <Widget>[
-              Text(subscrito ? 'Desuscribirse': 'Suscribirse'),
+              Text(dataConnection.subStatus ? 'Desuscribirse': 'Suscribirse'),
             ],
           ),
 
@@ -137,14 +137,14 @@ class _Tab2PageState extends State<Tab2Page> {
               // No esta conectado no me puedo suscribir 
               print(' No está conectado, no se puede suscribir');                      
             } else {              
-              if (subscrito == false){
-                print(' Está conectado, se puede suscribir al topic $topic');
-                mgMQTT.subscribeToTopic(topic);
-                subscrito = true;
+              if (dataConnection.subStatus == false){
+                print(' Está conectado, se puede suscribir al topic $dataConnection.topicsub');
+                mgMQTT.subscribeToTopic(dataConnection.topicsub);
+                dataConnection.subStatus = true;
               } else {
-                print(' Está conectado, se puede desuscribir del topic $topic');
-                mgMQTT.unsubscribeToTopic(topic);
-                subscrito = false;
+                print(' Está conectado, se puede desuscribir del topic $dataConnection.topicsub');
+                mgMQTT.unsubscribeToTopic(dataConnection.topicsub);
+                dataConnection.subStatus = false;
               }                       
             } 
             

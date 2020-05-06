@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mqtt_app01/src/mqtt/data_connection_mqtt.dart';
 import 'package:mqtt_app01/src/mqtt/manager_mqtt.dart';
 import 'package:mqtt_app01/src/providers/mqttstate_model.dart';
 import 'package:mqtt_app01/src/theme/tema.dart';
@@ -13,7 +14,7 @@ class Tab3Page extends StatefulWidget {
 class _Tab3PageState extends State<Tab3Page> {
   
   final String _titleBar = 'Cliente MQTT';
-  String topic = '';
+  //String topic = '';
   String payload = '';
     
   @override
@@ -23,6 +24,7 @@ class _Tab3PageState extends State<Tab3Page> {
     final mqttState = Provider.of<MqttStateModel>(context);
     // Instancia de la clase singleton donde manejamos la conexión y otras funciones 
     final managerMqtt = new ManagerMQTT(mqttState);    
+    final dataConnection = new DataConnectionMQTT();    
     
     //final dataConnection = new DataConnection();
     //dataConnection.username = 'hola';
@@ -52,10 +54,10 @@ class _Tab3PageState extends State<Tab3Page> {
                     //semanticLabel: 'Text to announce in accessibility modes',
                   ),
                   Text(mqttState.connectionState ? 'Conectado': 'Desconectado' ),
-                  _inputTopic(),
+                  _inputTopic(dataConnection),
                   _inputPayload(),
                   SizedBox(height: 30.0,),                    
-                  _buttonPublish(managerMqtt), 
+                  _buttonPublish(managerMqtt, dataConnection), 
                 ],
               )
 
@@ -65,19 +67,19 @@ class _Tab3PageState extends State<Tab3Page> {
     );
   }
 
-  Widget _inputTopic() {
+  Widget _inputTopic(DataConnectionMQTT dataConnection) {
 
     return TextField(
-      //controller: TextEditingController()..text = dataConnection.broker,   
+      controller: TextEditingController()..text = dataConnection.topicpub,   
       //autofocus: true,
       decoration: InputDecoration(
        labelText: 'Topic',
        hintText: 'Topic al que suscribirse'
       ),
       onChanged: (valor){
-        setState(() {
-          topic = valor;           
-        });
+        //setState(() {
+          dataConnection.topicpub = valor;           
+        //});
       },
     );
   }
@@ -92,14 +94,14 @@ Widget _inputPayload() {
        hintText: 'Payload a enviar'
       ),
       onChanged: (valor){
-        setState(() {
+        //setState(() {
           payload = valor;           
-        });
+        //});
       },
     );
   }
 
-  Widget _buttonPublish(ManagerMQTT mgMQTT) {
+  Widget _buttonPublish(ManagerMQTT mgMQTT, DataConnectionMQTT dataConnection) {
 return RaisedButton(
         child: Container(
           width: 140.0,
@@ -120,7 +122,7 @@ return RaisedButton(
           
           setState(() {
 
-            mgMQTT.publishMessageToTopic(topic, payload);
+            mgMQTT.publishMessageToTopic(dataConnection.topicpub, payload);
             
           });                                          
         }

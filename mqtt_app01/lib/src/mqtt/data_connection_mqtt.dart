@@ -19,11 +19,14 @@ class DataConnectionMQTT {
   
   DataConnectionMQTT._internal(){
     // Valores iniciales aqui dentro     
-    _broker  = 'xxx.xxx.x.xxx';
+    _broker  = '192.168.1.101';
     _port = 1883;
-    _username = '********';
-    _password = '********';
+    _username = 'moi';
+    _password = 'moi';
     _clientId = 'App flutter';
+    _topicsub = 'topic/sub';
+    _topicpub = 'topic/pub';
+    _subStatus = false;    
   }
   
   // Getter y setter 
@@ -32,7 +35,10 @@ class DataConnectionMQTT {
   String _username;
   String _password;
   String _clientId;
-
+  String _topicsub;
+  String _topicpub;
+  bool _subStatus;
+  
   // Getter y setter 
   // broker
   get broker {
@@ -79,5 +85,33 @@ class DataConnectionMQTT {
     print('Password: $_password');        
   }
 
-  
+  // topic subscribe 
+  get topicsub {
+    return _topicsub;
+  }
+  set topicsub (String input) {
+    this._topicsub = input;
+    print('TopicSub: $_topicsub');        
+  }
+
+// topic publish 
+  get topicpub {
+    return _topicpub;
+  }
+  set topicpub (String input) {
+    this._topicpub = input;
+    print('TopicPub: $_topicpub');        
+  }
+
+// subsribe estatus 
+  get subStatus {
+    return _subStatus;
+  }
+  set subStatus (bool val) {
+    this._subStatus = val;
+    print('subStatus: $_subStatus');        
+  }
+
+
+
 }

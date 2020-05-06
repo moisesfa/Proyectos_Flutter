@@ -13,7 +13,7 @@ class NavegacionModel with ChangeNotifier {
     this._paginaActual = valor;
     
     // Para cambiar de pagina 
-    _pageController.animateToPage(valor, duration: Duration(milliseconds: 250), curve: Curves.easeOut);
+    _pageController.animateToPage(valor, duration: Duration(milliseconds: 500), curve: Curves.easeOut);
     
     notifyListeners();
   }
