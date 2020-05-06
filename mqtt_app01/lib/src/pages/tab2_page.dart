@@ -31,50 +31,67 @@ class _Tab2PageState extends State<Tab2Page> {
         title: Text(_titleBar),
         backgroundColor: miTema.accentColor,
       ),
-      body: SafeArea(
-        child: Column (
-            children: <Widget>[              
-              Container(          
-                //width: double.infinity,
-                //∫height: doubel.infinity,
-                // color: Colors.red,        
-                padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
-                  child: Column (
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      // Icono que cambia de estado dependiendo de la conexón 
-                      Icon( mqttState.connectionState ? Icons.cloud_done : Icons.cloud_off,
-                        //Icons.cloud_off,                  
-                        color: Colors.cyan,
-                        size: 40.0,                  
-                        //semanticLabel: 'Text to announce in accessibility modes',
-                      ),
-                      Text(mqttState.connectionState ? 'Conectado': 'Desconectado' ),
-                      _inputTopic(), 
-                      //Text(topic),
-                      SizedBox(height: 30.0,),                    
-                      _buttonSubsNotsubs( mqttState.connectionState, managerMqtt),                
-                    ],
-                  )
+      resizeToAvoidBottomPadding: false,      
+      body: SafeArea(            
+              child: SingleChildScrollView(
+                child: Column (
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[              
+                  Container(          
+                    //width: double.infinity,
+                    //height: double.infinity,
+                    // color: Colors.red,        
+                    padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
+                      child: Column (
+                        //mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          // Icono que cambia de estado dependiendo de la conexón 
+                          Icon( mqttState.connectionState ? Icons.cloud_done : Icons.cloud_off,
+                            //Icons.cloud_off,                  
+                            color: Colors.cyan,
+                            size: 40.0,                  
+                            //semanticLabel: 'Text to announce in accessibility modes',
+                          ),
+                          Text(mqttState.connectionState ? 'Conectado': 'Desconectado' ),
+                          _inputTopic(), 
+                          //Text(topic),
+                          SizedBox(height: 30.0,),                    
+                          _buttonSubsNotsubs( mqttState.connectionState, managerMqtt),                
+                        ],
+                      )
+                  ),
+                  SizedBox(height: 10.0),
+                  Text('Mensajes recibidos : ' + mqttState.receivedMsg.length.toString()),
+                  SizedBox(height: 10.0),
+
+                  Container(
+                    //color: Colors.red,
+                    height: 170.0,
+                    child: Column(
+                      children: <Widget>[
+                        Expanded(
+                          child: _crearLista(context, mqttState.receivedMsg)
+                        )  
+                      ],
+                    ) ,
+                    //child: _crearLista(context, mqttState.receivedMsg)
+                  ) 
+
+                  /*
+                  Expanded(                
+                    //color: Colors.red,
+                    //height: double.infinity,                
+                    child: _crearLista(context, mqttState.receivedMsg)
+                    )
+                  */
+                ],
+                
+                
+          ),
               ),
-              SizedBox(height: 10.0),
-              Text('Mensajes recibidos : ' + mqttState.receivedMsg.length.toString()),
-              SizedBox(height: 10.0),
-              Expanded(                
-                //color: Colors.red,
-                //height: double.infinity,                
-                child: _crearLista(context, mqttState.receivedMsg)
-                )
-              
-
-
-            ],
-            
-            
-        ), 
-        
-      )
+        ),         
+      
     );
   }
 
@@ -144,7 +161,6 @@ class _Tab2PageState extends State<Tab2Page> {
       length  = listRec.length;  
     });
     
-
     return ListView.builder(
       //scrollDirection: Axis.vertical,
       //shrinkWrap: true,      

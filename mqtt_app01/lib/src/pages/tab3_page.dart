@@ -33,31 +33,33 @@ class _Tab3PageState extends State<Tab3Page> {
         backgroundColor: miTema.accentColor,
       ),
       body: SafeArea(
-        child: Container(
+        child: SingleChildScrollView(
+                  child: Container(
+            
+            //width: double.infinity,
+            //height: double.infinity,
           
-          width: double.infinity,
-          height: double.infinity,
-        
-          padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
-            child: Column (
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                // Icono que cambia de estado dependiendo de la conexón 
-                Icon( mqttState.connectionState ? Icons.cloud_done : Icons.cloud_off,
-                  //Icons.cloud_off,                  
-                  color: Colors.cyan,
-                  size: 40.0,                  
-                  //semanticLabel: 'Text to announce in accessibility modes',
-                ),
-                Text(mqttState.connectionState ? 'Conectado': 'Desconectado' ),
-                _inputTopic(),
-                _inputPayload(),
-                SizedBox(height: 30.0,),                    
-                _buttonPublish(managerMqtt), 
-              ],
-            )
+            padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
+              child: Column (
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  // Icono que cambia de estado dependiendo de la conexón 
+                  Icon( mqttState.connectionState ? Icons.cloud_done : Icons.cloud_off,
+                    //Icons.cloud_off,                  
+                    color: Colors.cyan,
+                    size: 40.0,                  
+                    //semanticLabel: 'Text to announce in accessibility modes',
+                  ),
+                  Text(mqttState.connectionState ? 'Conectado': 'Desconectado' ),
+                  _inputTopic(),
+                  _inputPayload(),
+                  SizedBox(height: 30.0,),                    
+                  _buttonPublish(managerMqtt), 
+                ],
+              )
 
+          ),
         )
       )
     );

@@ -38,49 +38,50 @@ class _Tab1PageState extends State<Tab1Page> {
         backgroundColor: miTema.accentColor,
       ),
       body: SafeArea (                    
-          child: Container (
-          
-            //decoration: BoxDecoration(              
-            //  color: Colors.cyan,
-            //  borderRadius: BorderRadius.circular(10),    
-            //),
+          child: SingleChildScrollView(
+              child: Container(            
+              //decoration: BoxDecoration(              
+              //  color: Colors.cyan,
+              //  borderRadius: BorderRadius.circular(10),    
+              //),
 
-            //width: double.infinity,
-            //height: double.infinity,
-            //height: MediaQuery.of(context).size.height,
-            //width: MediaQuery.of(context).size.width,            
-            
-            padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
-            //color: Colors.cyan,
-            //color: Color.fromRGBO(18, 18, 18, 0),
-            child: Column (
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
+              //width: double.infinity,
+              //height: double.infinity,
+              //height: MediaQuery.of(context).size.height,
+              //width: MediaQuery.of(context).size.width,            
               
-              children: <Widget>[
-                // Icono que cambia de estado dependiendo de la conexón 
-                Icon( mqttState.connectionState ? Icons.cloud_done : Icons.cloud_off,
-                  //Icons.cloud_off,
-                  
-                  color: Colors.cyan,
-                  size: 40.0,                  
-                  //semanticLabel: 'Text to announce in accessibility modes',
-                ), 
-                Text(mqttState.connectionState ? 'Conectado': 'Desconectado' ),
-                _inputBroker(dataConnection),
-                SizedBox(height: 10.0,),
-                _inputPort(dataConnection),
-                SizedBox(height: 10.0,),
-                _inputClientname(dataConnection),
-                SizedBox(height: 10.0,),
-                _inputUsername(dataConnection),
-                SizedBox(height: 10.0,),
-                _inputPassword(dataConnection),
-                SizedBox(height: 30.0,),
-                _buttonConnectDisconnect( mqttState.connectionState, managerMqtt)
-              ],              
-            ),
-        ),         
+              padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
+              //color: Colors.cyan,
+              //color: Color.fromRGBO(18, 18, 18, 0),
+              child: Column (
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                
+                children: <Widget>[
+                  // Icono que cambia de estado dependiendo de la conexón 
+                  Icon( mqttState.connectionState ? Icons.cloud_done : Icons.cloud_off,
+                    //Icons.cloud_off,
+                    
+                    color: Colors.cyan,
+                    size: 40.0,                  
+                    //semanticLabel: 'Text to announce in accessibility modes',
+                  ), 
+                  Text(mqttState.connectionState ? 'Conectado': 'Desconectado' ),
+                  _inputBroker(dataConnection),
+                  SizedBox(height: 10.0,),
+                  _inputPort(dataConnection),
+                  SizedBox(height: 10.0,),
+                  _inputClientname(dataConnection),
+                  SizedBox(height: 10.0,),
+                  _inputUsername(dataConnection),
+                  SizedBox(height: 10.0,),
+                  _inputPassword(dataConnection),
+                  SizedBox(height: 30.0,),
+                  _buttonConnectDisconnect( mqttState.connectionState, managerMqtt)
+                ],              
+              ),
+        ),
+          ),         
       ),
 
       /*  

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class MqttStateModel with ChangeNotifier {
 
   bool _connectionState = false;  
-  List<String> _receivedMsg = []; 
+  List<String> _receivedMsg = new List();
   
   // Getter y setter 
   // connectionState

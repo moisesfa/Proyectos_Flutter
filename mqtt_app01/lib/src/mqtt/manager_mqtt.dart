@@ -28,7 +28,7 @@ class ManagerMQTT {
   mqtt.MqttClient _mqttClient;
   mqtt.MqttConnectionState mqttConnectionState;
   StreamSubscription streamSubscription;
-  List<String> mqttResponse = [];
+  final List<String> mqttResponse = new List();
 
   
   // Función que crea un cliente e intenta la conexión TCP con el broker 

@@ -35,7 +35,7 @@ También podremos hacer publicaciones en el topic que escribamos.
 <img src="https://raw.githubusercontent.com/moisesfa/Proyectos_Flutter/master/img/mqttapp01/code3.png">
 </p>
 
-He usado el programa [MqttBox](http://workswithweb.com/mqttbox.html) para hacer las pruebas. 
+He usado el programa [MqttBox](http://workswithweb.com/mqttbox.html) para hacer las pruebas con un broker mosquitto en una raspberry local. 
 
 <p style="text-align:center">
 <img src="https://raw.githubusercontent.com/moisesfa/Proyectos_Flutter/master/img/mqttapp01/mqttBox1.png">
